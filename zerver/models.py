@@ -2393,14 +2393,6 @@ class UserPresence(models.Model):
 
         return status_val
 
-# TODO: Remove this hook once the build passes for the initial
-#       migration.
-def ensure_realm_not_null(sender: Any, **kwargs: Any) -> None:
-    if kwargs['instance'].realm_id is None:  # nocoverage
-        raise Exception('need realm_id')
-
-post_save.connect(ensure_realm_not_null, sender=UserPresence)
-
 class UserStatus(models.Model):
     user_profile = models.OneToOneField(UserProfile, on_delete=CASCADE)  # type: UserProfile
 
